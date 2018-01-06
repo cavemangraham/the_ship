@@ -1,0 +1,40 @@
+<div id="input-form">
+  <h1><%= @message %></h1>
+  <form action="/respond" method="POST" target="_blank">
+    <input type="text" name="message" value="I have put in your order for a chicken burrito at Pancho's Mexican grill since I know it is your favorite.">
+    <input type="submit">
+  </form>
+  <form action="/respond" method="POST" target="_blank">
+    <input type="text" name="message" value="I will begin working on your email. I will update you in 30 minutes with my progress. Is there anything else I can help you with?">
+    <input type="submit">
+  </form>
+  <form action="/respond" method="POST" target="_blank">
+    <input type="text" name="message" value="I have found a flight and rental car for $1345. Is this suitable?">
+    <input type="submit">
+  </form>
+  <form action="/respond" method="POST" target="_blank">
+    <input type="text" name="message" value="I will have the flowers and card delivered by 6pm tomorrow. Let me know if there is anything else you need.">
+    <input type="submit">
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('form').submit(function(e){
+    e.preventDefault();
+    $('#loading').html("<img src='images/loading.gif' height='325' width='325'><br>processing...");
+      $.ajax({
+      type: "POST",
+      url: "/result",
+      data: $('form').serialize(),
+      success: function(){
+          $('#loading').hide();
+
+      },
+      error: function(){
+        $("#result").html("No success.")
+      }
+    });
+  });
+});
+</script>
